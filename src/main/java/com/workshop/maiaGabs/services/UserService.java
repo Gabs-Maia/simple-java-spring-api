@@ -1,8 +1,11 @@
 package com.workshop.maiaGabs.services;
 
-import com.workshop.maiaGabs.entities.User;
+import com.workshop.maiaGabs.models.dto.UserCreateDTO;
+import com.workshop.maiaGabs.models.dto.UserUpdateDTO;
+import com.workshop.maiaGabs.models.entities.User;
 import com.workshop.maiaGabs.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,9 +50,24 @@ public class UserService {
         try{
             this.userRepository.deleteById(id);
         }catch(Exception e){
-            throw new RuntimeException("It was not possible to delete this entity :(" + entName + ")");
+            throw new RuntimeException("It was not possible to delete this entity.");
         }
     }
 
-    public
+    public User fromDTO(@Valid UserCreateDTO userCreateDTO){
+
+        User user = new User();
+        user.setUsername(userCreateDTO.getUsername());
+        user.setPassword(userCreateDTO.getPassword());
+        return user;
+    }
+
+    public User fromDTO(@Valid UserUpdateDTO userUpdateDTO){
+
+        User user = new User();
+        user.setId(userUpdateDTO.getId());
+        user.setPassword(userUpdateDTO.getPassword());
+
+        return user;
+    }
 }

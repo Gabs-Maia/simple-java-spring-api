@@ -1,4 +1,4 @@
-package com.workshop.maiaGabs.dto;
+package com.workshop.maiaGabs.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
